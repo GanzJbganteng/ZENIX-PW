@@ -51,10 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
     bugData.forEach((b, i) => {
       bugContainer.insertAdjacentHTML(
         "beforeend",
-        <div class="bug">
+        `<div class="bug">
            <span>${b.title}</span>
            <button onclick="cp(${i})">Copy</button>
-         </div>
+         </div>`
       );
     });
     rendered = true;
@@ -72,14 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
     tiktokResult.textContent = "Mengambil…";
     try {
       const r = await fetch(
-        https://r.jina.ai/http://api.tikmate.app/api/lookup?url=${encodeURIComponent(
+        `https://r.jina.ai/http://api.tikmate.app/api/lookup?url=${encodeURIComponent(
           url
-        )}
+        )}`
       );
       const d = await r.json();
       if (!d.token) throw 0;
-      const link = https://tikmate.app/download/${d.token}/${d.id}.mp4;
-      tiktokResult.innerHTML = <a href="${link}" target="_blank">Download MP4</a>;
+      const link = `https://tikmate.app/download/${d.token}/${d.id}.mp4`;
+      tiktokResult.innerHTML = `<a href="${link}" target="_blank">Download MP4</a>`;
       toast("Berhasil!");
     } catch {
       tiktokResult.textContent = "Gagal.";
