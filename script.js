@@ -1,72 +1,113 @@
-/* ====== Theme toggle ====== */
-const themeBtn = document.getElementById('themeToggle');
-if (localStorage.getItem('zenTheme') === 'light') { document.body.classList.add('light'); }
-themeBtn.onclick = () => {
-  document.body.classList.toggle('light');
-  localStorage.setItem('zenTheme', document.body.classList.contains('light') ? 'light' : 'dark');
-};
-
-/* ====== Sidebar navigation ====== */
-document.querySelectorAll('.sidebar a').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-    link.classList.add('active');
-    const page = link.dataset.page;
-    document.querySelectorAll('.page').forEach(sec => sec.classList.add('hidden'));
-    document.getElementById(${page}Section).classList.remove('hidden');
-    window.scrollTo({ top: 0 });
-    if (page === 'func') renderBugs();
-  });
-});
-
-/* ====== Render Func Bug list (once) ====== */
-let bugsRendered = false;
-function renderBugs() {
-  if (bugsRendered) return;
-  const wrap = document.getElementById('bugContainer');
-  bugData.forEach((b, i) => {
-    const div = document.createElement('div');
-    div.className = 'bug';
-    div.innerHTML = <span>${b.title}</span>
-                     <button onclick="copyBug(${i})">Copy</button>;
-    wrap.appendChild(div);
-  });
-  bugsRendered = true;
-}
-window.copyBug = function (i) {
-  navigator.clipboard.writeText(atob(bugData[i].funcB64))
-    .then(() => toast('Copied!'))
-    .catch(() => toast('Copy failed', true));
-};
-
-/* ====== Downloader TikTok (DEMO) ====== */
-window.dlTikTok = async () => {
-  const url = document.getElementById('tiktokUrl').value.trim();
-  const out = document.getElementById('tiktokResult');
-  if (!url) { toast('URL kosong!', true); return; }
-  out.textContent = 'Fetching…';
-  try {
-    /* Contoh pakai API publik Tikmate (mungkin butuh CORS proxy) */
-    const res = await fetch(https://r.jina.ai/http://api.tikmate.app/api/lookup?url=${encodeURIComponent(url)});
-    const data = await res.json();
-    if (!data.video || !data.token) throw new Error('invalid link');
-    const mp4 = https://tikmate.app/download/${data.token}/${data.id}.mp4;
-    out.innerHTML = <a href="${mp4}" target="_blank">Download MP4</a>;
-    toast('Link siap!');
-  } catch (err) {
-    out.textContent = 'Gagal. API mungkin diblokir.';
-    toast('Download gagal', true);
+/* ==========================================
+   Zenix RGP – Main Script
+   - Safe load (DOMContentLoaded)
+   - Sidebar navigation stable
+   - Func Bug render once
+   - TikTok downloader demo
+   ========================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  /* ---- THEME ---- */
+  const themeBtn = document.getElementById("themeToggle");
+  if (localStorage.getItem("zenTheme") === "light") {
+    document.body.classList.add("light");
+    themeBtn.textContent = "☀️";
   }
-};
+  themeBtn.onclick = () => {
+    const light = document.body.classList.toggle("light");
+    themeBtn.textContent = light ? "☀️" : "🌙";
+    localStorage.setItem("zenTheme", light ? "light" : "dark");
+  };
 
-/* ====== Toast helper ====== */
-function toast(msg, err = false) {
-  const wrap = document.getElementById('toastContainer');
-  const div = document.createElement('div');
-  div.className = 'toast';
-  if (err) div.style.borderLeftColor = 'red';
-  div.textContent = msg;
-  wrap.appendChild(div);
-  setTimeout(() => { div.style.opacity = 0; setTimeout(() => wrap.removeChild(div), 500); }, 2500);
-}
+  /* ---- NAVIGATION ---- */
+  const pages = {
+    home:        document.getElementById("homeSection"),
+    func:        document.getElementById("funcSection"),
+    downloader:  document.getElementById("downloaderSection"),
+    about:       document.getElementById("aboutSection")
+  };
+
+  function showPage(key) {
+    Object.values(pages).forEach(sec => sec.classList.add("hidden"));
+    (pages[key] || pages.home).classList.remove("hidden");
+    window.scrollTo({ top: 0 });
+    if (key === "func") renderBugs();
+  }
+
+  document.querySelectorAll(".sidebar a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const page = link.dataset.page;
+      document
+        .querySelectorAll(".sidebar a")
+        .forEach(a => a.classList.toggle("active", a === link));
+      showPage(page);
+    });
+  });
+
+  /* ---- FUNC BUG RENDER ---- */
+  let bugsRendered = false;
+  function renderBugs() {
+    if (bugsRendered) return;
+    if (typeof bugData === "undefined") {
+      toast("⚠️ bugData belum ada", true);
+      return;
+    }
+    const wrap = document.getElementById("bugContainer");
+    bugData.forEach((b, i) => {
+      const div = document.createElement("div");
+      div.className = "bug";
+      div.innerHTML = <span>${b.title}</span>
+                       <button onclick="copyBug(${i})">Copy</button>;
+      wrap.appendChild(div);
+    });
+    bugsRendered = true;
+  }
+
+  window.copyBug = i => {
+    navigator.clipboard
+      .writeText(atob(bugData[i].funcB64))
+      .then(() => toast("✅ Copied!"))
+      .catch(() => toast("❌ Copy gagal", true));
+  };
+
+  /* ---- TikTok downloader demo ---- */
+  window.dlTikTok = async () => {
+    const urlInp = document.getElementById("tiktokUrl");
+    const out    = document.getElementById("tiktokResult");
+    const url    = urlInp.value.trim();
+    if (!url) return toast("Masukkan URL!", true);
+
+    out.textContent = "Mengambil…";
+    try {
+      const api = https://r.jina.ai/http://api.tikmate.app/api/lookup?url=${encodeURIComponent(
+        url
+      )};
+      const res  = await fetch(api);
+      const data = await res.json();
+      if (!data.token) throw new Error("Invalid link");
+      const mp4 = https://tikmate.app/download/${data.token}/${data.id}.mp4;
+      out.innerHTML = <a href="${mp4}" target="_blank">Download MP4</a>;
+      toast("Berhasil!");
+    } catch (err) {
+      out.textContent = "Gagal mengambil.";
+      toast("❌ Error mengambil video", true);
+    }
+  };
+
+  /* ---- TOAST ---- */
+  function toast(msg, err = false) {
+    const box = document.getElementById("toastContainer");
+    const div = document.createElement("div");
+    div.className = "toast";
+    if (err) div.style.borderLeftColor = "red";
+    div.textContent = msg;
+    box.appendChild(div);
+    setTimeout(() => {
+      div.style.opacity = 0;
+      setTimeout(() => box.removeChild(div), 500);
+    }, 2500);
+  }
+
+  /* ---- INIT: show home by default ---- */
+  showPage("home");
+});
