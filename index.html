@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Falcon UI Dashboard</title>
+  <title>Zenix Web Dashboard</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- ───── sidebar ───── -->
   <aside class="sidebar">
     <div class="logo">Zenix Web 🚀</div>
     <nav>
       <ul>
         <li><a href="#" class="active" data-page="home">Home</a></li>
         <li><a href="#" data-page="endpoints">Endpoints</a></li>
-        <li><a href="#" data-page="bugfree">Func Bug</a></li>
+        <li><a href="#" data-page="bugfree">Func Bug</a></li>  <!-- ✔ sidebar label -->
         <li><a href="#" data-page="settings">Settings</a></li>
         <li><a href="#" data-page="about">About</a></li>
       </ul>
@@ -21,15 +22,17 @@
     <button id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
   </aside>
 
+  <!-- ───── content ───── -->
   <main class="content">
     <header class="topbar">
       <button id="menuBtn" class="ham" aria-label="Toggle Menu">☰</button>
-      <h1 id="pageTitle">Home</h1>
+      <h1 id="pageTitle">Home</h1>  <!-- ✔ akan di-update via script -->
     </header>
 
-    <section id="homeSection" class="page">      
+    <section id="homeSection" class="page">
       <p>Welcome to <strong>Zenix 🚀🚀</strong>.</p>
     </section>
+
     <section id="endpointsSection" class="page hidden">
       <h2>Test AI Hydromind Endpoint</h2>
       <label for="textInput">Message</label>
@@ -38,18 +41,20 @@
       <h3>Response</h3>
       <pre id="output" class="output">// Response will appear here</pre>
     </section>
+
     <section id="bugfreeSection" class="page hidden">
-      <h2>Func Bug Free</h2>
+      <h2>Func Bug</h2> <!-- ✔ section title -->
       <ul id="bugList" class="bug-list"></ul>
     </section>
+
     <section id="settingsSection" class="page hidden"><h2>Settings</h2></section>
-    <section id="aboutSection" class="page hidden"><h2>About</h2></section>
+    <section id="aboutSection"    class="page hidden"><h2>About</h2></section>
   </main>
 
   <div id="toastContainer" class="toast-container"></div>
-  <div id="overlay" class="overlay"></div>
 
+  <!-- scripts -->
   <script src="func.js"></script>
   <script src="script.js"></script>
 </body>
-</html>
+  </html>
