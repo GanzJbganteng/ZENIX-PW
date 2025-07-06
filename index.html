@@ -1,60 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zenix Web Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Creator Rofik – RGP Web</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* -------- PALETTE -------- */
+    :root{
+      --c-purple:#a21caf;   /* ungu */
+      --c-red:#dc2626;      /* merah */
+      --c-bg:#0b0b0b;       /* gelap */
+      --c-bg-light:#fafafa; /* terang */
+      --c-text-dark:#eee;
+      --c-text-light:#111;
+    }
+    body{
+      background:var(--c-bg);
+      color:var(--c-text-dark);
+      font-family:'Segoe UI',sans-serif;
+      overflow-x:hidden;
+      transition:.4s background,.4s color;
+    }
+    body.light{
+      background:var(--c-bg-light);
+      color:var(--c-text-light);
+    }
+
+    /* -------- GLOW UTAMA -------- */
+    .glow-h1{
+      font-size:3.5rem;font-weight:900;text-align:center;letter-spacing:1px;
+      text-shadow:0 0 8px var(--c-purple),0 0 20px var(--c-red);
+      background:linear-gradient(90deg,var(--c-red),var(--c-purple));
+      -webkit-background-clip:text;color:transparent;
+      animation:glowColor 6s ease-in-out infinite;
+    }
+    @keyframes glowColor{
+      0%,100%{text-shadow:0 0 8px var(--c-purple),0 0 20px var(--c-red);}
+      50%{text-shadow:0 0 8px var(--c-red),0 0 20px var(--c-purple);}
+    }
+
+    .glow-sub{
+      text-align:center;font-size:1.6rem;font-weight:800;
+      text-shadow:0 0 6px var(--c-red),0 0 15px var(--c-purple);
+    }
+
+    /* -------- CARD GLOW -------- */
+    .card{
+      background:linear-gradient(135deg,rgba(162,28,175,.25),rgba(220,38,38,.25));
+      border:1px solid rgba(220,38,38,.3);
+      border-radius:1rem;padding:2rem;backdrop-filter:blur(6px);
+      box-shadow:0 0 18px 4px rgba(162,28,175,.35);
+      transition:.35s all;
+      opacity:0;transform:translateY(40px); /* awal (sebelum di-scroll) */
+    }
+    .card:hover{
+      box-shadow:0 0 25px 8px rgba(220,38,38,.55);
+      transform:translateY(-4px);
+    }
+    .card.inview{opacity:1;transform:translateY(0);} /* aktif saat terlihat */
+
+    /* -------- TOGGLE-THEME -------- */
+    #themeBtn{
+      position:fixed;right:1rem;bottom:1rem;z-index:999;
+      background:linear-gradient(135deg,var(--c-purple),var(--c-red));
+      color:#fff;padding:.7rem 1rem;border-radius:50%;font-size:1.2rem;
+      box-shadow:0 0 12px 3px rgba(162,28,175,.45);cursor:pointer;
+      transition:.3s;
+    }
+    #themeBtn:hover{transform:scale(1.08);}
+
+    /* -------- ANIMASI SCROLL (fallback no-JS) -------- */
+    @keyframes fadeSlide{
+      from{opacity:0;transform:translateY(40px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+  </style>
 </head>
 <body>
-  <!-- ───── sidebar ───── -->
-  <aside class="sidebar">
-    <div class="logo">Zenix Web 🚀</div>
-    <nav>
-      <ul>
-        <li><a href="#" class="active" data-page="home">Home</a></li>
-        <li><a href="#" data-page="endpoints">Endpoints</a></li>
-        <li><a href="#" data-page="bugfree">Func Bug</a></li>  <!-- ✔ sidebar label -->
-        <li><a href="#" data-page="settings">Settings</a></li>
-        <li><a href="#" data-page="about">About</a></li>
-      </ul>
-    </nav>
-    <button id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
-  </aside>
 
-  <!-- ───── content ───── -->
-  <main class="content">
-    <header class="topbar">
-      <button id="menuBtn" class="ham" aria-label="Toggle Menu">☰</button>
-      <h1 id="pageTitle">Home</h1>  <!-- ✔ akan di-update via script -->
-    </header>
+  <!-- HEADER -->
+  <header class="min-h-screen flex flex-col items-center justify-center gap-4 text-center px-4">
+    <h1 class="glow-h1">WELCOME</h1>
+    <p class="glow-sub">CREATOR&nbsp;ROFIK</p>
+  </header>
 
-    <section id="homeSection" class="page">
-      <p>Welcome to <strong>Zenix 🚀🚀</strong>.</p>
-    </section>
+  <!-- SECTION 1 -->
+  <section class="max-w-6xl mx-auto px-6 pb-24">
+    <h2 class="text-2xl font-bold text-center mb-10 glow-sub">My Cool Features</h2>
 
-    <section id="endpointsSection" class="page hidden">
-      <h2>Test AI Hydromind Endpoint</h2>
-      <label for="textInput">Message</label>
-      <input type="text" id="textInput" placeholder="Enter text…" />
-      <button id="sendBtn">Send</button>
-      <h3>Response</h3>
-      <pre id="output" class="output">// Response will appear here</pre>
-    </section>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="card" data-obs>
+        <h3 class="text-xl font-semibold mb-2">Func Bug Zone</h3>
+        <p class="text-sm opacity-80 mb-4">Kumpulan script func crash terbaru—langsung copy.</p>
+        <button class="px-4 py-2 rounded-full text-sm font-bold text-white"
+          style="background:linear-gradient(90deg,var(--c-red),var(--c-purple));box-shadow:0 0 8px var(--c-purple);">
+          Explore
+        </button>
+      </div>
 
-    <section id="bugfreeSection" class="page hidden">
-      <h2>Func Bug</h2> <!-- ✔ section title -->
-      <ul id="bugList" class="bug-list"></ul>
-    </section>
+      <div class="card" data-obs>
+        <h3 class="text-xl font-semibold mb-2">Downloader</h3>
+        <p class="text-sm opacity-80 mb-4">YT/TT/IG downloader tanpa watermark.</p>
+        <button class="px-4 py-2 rounded-full text-sm font-bold text-white"
+          style="background:linear-gradient(90deg,var(--c-red),var(--c-purple));box-shadow:0 0 8px var(--c-purple);">
+          Coba
+        </button>
+      </div>
 
-    <section id="settingsSection" class="page hidden"><h2>Settings</h2></section>
-    <section id="aboutSection"    class="page hidden"><h2>About</h2></section>
-  </main>
+      <div class="card" data-obs>
+        <h3 class="text-xl font-semibold mb-2">AI Chat</h3>
+        <p class="text-sm opacity-80 mb-4">Ngobrol dengan bot AI multi-language.</p>
+        <button class="px-4 py-2 rounded-full text-sm font-bold text-white"
+          style="background:linear-gradient(90deg,var(--c-red),var(--c-purple));box-shadow:0 0 8px var(--c-purple);">
+          Mulai
+        </button>
+      </div>
+    </div>
+  </section>
 
-  <div id="toastContainer" class="toast-container"></div>
+  <!-- TOGGLE THEME -->
+  <button id="themeBtn" title="Toggle Theme">🌙</button>
 
-  <!-- scripts -->
-  <script src="func.js"></script>
-  <script src="script.js"></script>
+  <!-- JS: theme & scroll observer -->
+  <script>
+    /* === Theme Toggle === */
+    const themeBtn = document.getElementById('themeBtn');
+    if(localStorage.getItem('zenix-theme')==='light'){document.body.classList.add('light');}
+    themeBtn.onclick = () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('zenix-theme', document.body.classList.contains('light') ? 'light':'dark');
+    };
+
+    /* === Scroll animation (IntersectionObserver) === */
+    const cards = document.querySelectorAll('[data-obs]');
+
+    // Fallback kalau browser kuno
+    if(!('IntersectionObserver' in window)){
+      cards.forEach(c=>{
+        c.style.animation='fadeSlide .7s forwards';
+      });
+    }else{
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('inview');
+            io.unobserve(entry.target);
+          }
+        });
+      },{threshold:.2});
+      cards.forEach(c=>io.observe(c));
+    }
+  </script>
 </body>
-  </html>
+</html>
