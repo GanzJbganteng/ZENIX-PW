@@ -6,10 +6,10 @@
   <title>Zenix RGP – Creator Rofik</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="sidebar-closed"><!-- body mulai dengan sidebar tertutup -->
 
   <!-- ========= SIDEBAR ========= -->
-  <aside class="sidebar">
+  <aside class="sidebar closed" id="side">
     <div class="logo">Zenix RGP 🚀</div>
     <nav>
       <ul>
@@ -22,8 +22,12 @@
     <button id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
   </aside>
 
+  <!-- tombol hamburger -->
+  <button id="menuBtn" class="ham">☰</button>
+
   <!-- ========= CONTENT ========= -->
   <main class="content">
+
     <!-- welcome -->
     <section id="homeSection" class="page">
       <header class="hero">
@@ -50,19 +54,16 @@
         <div id="tiktokResult" class="dl-result"></div>
       </div>
 
-      <!-- Pinterest -->
       <div class="dl-box">
         <h3>📌 Pinterest (coming soon)</h3>
         <input disabled placeholder="URL Pinterest…" />
       </div>
 
-      <!-- CapCut -->
       <div class="dl-box">
         <h3>✂️ CapCut (coming soon)</h3>
         <input disabled placeholder="URL CapCut…" />
       </div>
 
-      <!-- Alight Motion Preset -->
       <div class="dl-box">
         <h3>🎞️ Preset Alight Motion</h3>
         <ul class="preset-list">
@@ -75,13 +76,11 @@
     <!-- about -->
     <section id="aboutSection" class="page hidden">
       <h2 class="title-page">Tentang</h2>
-      <p class="mt-4 leading-relaxed">
-        Hai! Saya <strong>Rofik</strong>, pembuat Zenix RGP UI.<br>
-        Di sini saya berbagi func bug, preset Alight Motion, dan downloader gratis.
-      </p>
+      <p>Hai! Saya <strong>Rofik</strong>, pencinta RGP UI dan berbagi tool gratis untuk semua.</p>
     </section>
   </main>
 
+  <!-- toast -->
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- scripts -->
