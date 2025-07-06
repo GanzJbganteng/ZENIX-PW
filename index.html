@@ -6,7 +6,6 @@
   <title>Creator Rofik – RGP Web</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* -------- PALETTE -------- */
     :root{
       --c-purple:#a21caf;   /* ungu */
       --c-red:#dc2626;      /* merah */
@@ -27,9 +26,9 @@
       color:var(--c-text-light);
     }
 
-    /* -------- GLOW UTAMA -------- */
+    /* glow utama */
     .glow-h1{
-      font-size:3.5rem;font-weight:900;text-align:center;letter-spacing:1px;
+      font-size:3.5rem;font-weight:900;letter-spacing:1px;text-align:center;
       text-shadow:0 0 8px var(--c-purple),0 0 20px var(--c-red);
       background:linear-gradient(90deg,var(--c-red),var(--c-purple));
       -webkit-background-clip:text;color:transparent;
@@ -37,44 +36,61 @@
     }
     @keyframes glowColor{
       0%,100%{text-shadow:0 0 8px var(--c-purple),0 0 20px var(--c-red);}
-      50%{text-shadow:0 0 8px var(--c-red),0 0 20px var(--c-purple);}
+      50%   {text-shadow:0 0 8px var(--c-red),0 0 20px var(--c-purple);}
     }
-
     .glow-sub{
       text-align:center;font-size:1.6rem;font-weight:800;
       text-shadow:0 0 6px var(--c-red),0 0 15px var(--c-purple);
     }
 
-    /* -------- CARD GLOW -------- */
+    /* card */
     .card{
       background:linear-gradient(135deg,rgba(162,28,175,.25),rgba(220,38,38,.25));
       border:1px solid rgba(220,38,38,.3);
       border-radius:1rem;padding:2rem;backdrop-filter:blur(6px);
       box-shadow:0 0 18px 4px rgba(162,28,175,.35);
       transition:.35s all;
-      opacity:0;transform:translateY(40px); /* awal (sebelum di-scroll) */
+      opacity:0;transform:translateY(40px);
     }
     .card:hover{
       box-shadow:0 0 25px 8px rgba(220,38,38,.55);
       transform:translateY(-4px);
     }
-    .card.inview{opacity:1;transform:translateY(0);} /* aktif saat terlihat */
+    .card.inview{opacity:1;transform:translateY(0);}
 
-    /* -------- TOGGLE-THEME -------- */
+    .glow-btn{
+      background:linear-gradient(90deg,var(--c-red),var(--c-purple));
+      color:#fff;font-weight:700;padding:.6rem 1.6rem;border-radius:9999px;
+      box-shadow:0 0 10px var(--c-purple);transition:.3s;
+    }
+    .glow-btn:hover{box-shadow:0 0 16px var(--c-red);transform:scale(1.05);}
+
+    /* section func bug */
+    #funcBugSection{background:#131313;padding:4rem 1rem;}
+    .bug-item{
+      background:#1e1e1e;border:1px solid rgba(255,255,255,.1);
+      border-radius:.75rem;padding:1rem 1.2rem;
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:1rem;box-shadow:0 0 10px rgba(162,28,175,.3);
+    }
+    .bug-item button{
+      background:var(--c-purple);padding:.3rem .9rem;border-radius:.5rem;
+      color:#fff;font-size:.8rem;cursor:pointer;transition:.2s;
+    }
+    .bug-item button:hover{background:var(--c-red);}
+    .bug-item:last-child{margin-bottom:0;}
+
+    /* scroll anim fallback */
+    @keyframes fadeSlide{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+    /* theme toggle */
     #themeBtn{
       position:fixed;right:1rem;bottom:1rem;z-index:999;
       background:linear-gradient(135deg,var(--c-purple),var(--c-red));
       color:#fff;padding:.7rem 1rem;border-radius:50%;font-size:1.2rem;
-      box-shadow:0 0 12px 3px rgba(162,28,175,.45);cursor:pointer;
-      transition:.3s;
+      box-shadow:0 0 12px 3px rgba(162,28,175,.45);cursor:pointer;transition:.3s;
     }
     #themeBtn:hover{transform:scale(1.08);}
-
-    /* -------- ANIMASI SCROLL (fallback no-JS) -------- */
-    @keyframes fadeSlide{
-      from{opacity:0;transform:translateY(40px);}
-      to{opacity:1;transform:translateY(0);}
-    }
   </style>
 </head>
 <body>
@@ -85,71 +101,96 @@
     <p class="glow-sub">CREATOR&nbsp;ROFIK</p>
   </header>
 
-  <!-- SECTION 1 -->
+  <!-- MENU SECTION -->
   <section class="max-w-6xl mx-auto px-6 pb-24">
     <h2 class="text-2xl font-bold text-center mb-10 glow-sub">My Cool Features</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="card" data-obs>
+      <!-- FUNC BUG -->
+      <div class="card" data-obs onclick="scrollToFuncBug()">
         <h3 class="text-xl font-semibold mb-2">Func Bug Zone</h3>
-        <p class="text-sm opacity-80 mb-4">Kumpulan script func crash terbaru—langsung copy.</p>
-        <button class="px-4 py-2 rounded-full text-sm font-bold text-white"
-          style="background:linear-gradient(90deg,var(--c-red),var(--c-purple));box-shadow:0 0 8px var(--c-purple);">
-          Explore
-        </button>
+        <p class="text-sm opacity-80 mb-5">Kumpulan script func crash terbaru—langsung copy.</p>
+        <button class="glow-btn">Explore</button>
       </div>
 
+      <!-- Downloader dummy -->
       <div class="card" data-obs>
         <h3 class="text-xl font-semibold mb-2">Downloader</h3>
-        <p class="text-sm opacity-80 mb-4">YT/TT/IG downloader tanpa watermark.</p>
-        <button class="px-4 py-2 rounded-full text-sm font-bold text-white"
-          style="background:linear-gradient(90deg,var(--c-red),var(--c-purple));box-shadow:0 0 8px var(--c-purple);">
-          Coba
-        </button>
+        <p class="text-sm opacity-80 mb-5">Tool untuk download video / audio tanpa watermark.</p>
+        <button class="glow-btn">Soon</button>
       </div>
 
+      <!-- AI Chat dummy -->
       <div class="card" data-obs>
         <h3 class="text-xl font-semibold mb-2">AI Chat</h3>
-        <p class="text-sm opacity-80 mb-4">Ngobrol dengan bot AI multi-language.</p>
-        <button class="px-4 py-2 rounded-full text-sm font-bold text-white"
-          style="background:linear-gradient(90deg,var(--c-red),var(--c-purple));box-shadow:0 0 8px var(--c-purple);">
-          Mulai
-        </button>
+        <p class="text-sm opacity-80 mb-5">Chat dengan AI langsung dari web.</p>
+        <button class="glow-btn">Soon</button>
       </div>
     </div>
   </section>
 
-  <!-- TOGGLE THEME -->
+  <!-- FUNC BUG SECTION -->
+  <section id="funcBugSection" class="hidden">
+    <h2 class="text-3xl font-extrabold text-center mb-8 glow-h1" style="font-size:2.3rem;">FUNC BUG LIST</h2>
+
+    <div class="max-w-3xl mx-auto">
+      <!-- sample list -->
+      <div class="bug-item">
+        <span>FUNC UI TAMA</span>
+        <button onclick="copyBug('async function DocFc(){console.log(`Hello`);}')">Copy</button>
+      </div>
+      <div class="bug-item">
+        <span>Protocol Freeze</span>
+        <button onclick="copyBug('status@broadcast\\n\\u200E\\u200E')">Copy</button>
+      </div>
+      <div class="bug-item">
+        <span>WhatsApp Crash Sticker</span>
+        <button onclick="copyBug('base64-webp-data')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- THEME TOGGLE -->
   <button id="themeBtn" title="Toggle Theme">🌙</button>
 
-  <!-- JS: theme & scroll observer -->
   <script>
-    /* === Theme Toggle === */
-    const themeBtn = document.getElementById('themeBtn');
-    if(localStorage.getItem('zenix-theme')==='light'){document.body.classList.add('light');}
-    themeBtn.onclick = () => {
+    /* theme toggle */
+    const themeBtn=document.getElementById('themeBtn');
+    if(localStorage.getItem('zenix-theme')==='light'){document.body.classList.add('light');themeBtn.textContent='☀️';}
+    themeBtn.onclick=()=>{
       document.body.classList.toggle('light');
-      localStorage.setItem('zenix-theme', document.body.classList.contains('light') ? 'light':'dark');
+      themeBtn.textContent=document.body.classList.contains('light')?'☀️':'🌙';
+      localStorage.setItem('zenix-theme',document.body.classList.contains('light')?'light':'dark');
     };
 
-    /* === Scroll animation (IntersectionObserver) === */
-    const cards = document.querySelectorAll('[data-obs]');
-
-    // Fallback kalau browser kuno
-    if(!('IntersectionObserver' in window)){
-      cards.forEach(c=>{
-        c.style.animation='fadeSlide .7s forwards';
-      });
-    }else{
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            entry.target.classList.add('inview');
-            io.unobserve(entry.target);
+    /* scroll animation */
+    const obsItems=document.querySelectorAll('[data-obs]');
+    if('IntersectionObserver' in window){
+      const io=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('inview');
+            io.unobserve(e.target);
           }
         });
       },{threshold:.2});
-      cards.forEach(c=>io.observe(c));
+      obsItems.forEach(el=>io.observe(el));
+    }else{
+      obsItems.forEach(el=>el.style.animation='fadeSlide .7s forwards');
+    }
+
+    /* scroll to func bug section */
+    const funcSec=document.getElementById('funcBugSection');
+    function scrollToFuncBug(){
+      funcSec.classList.remove('hidden');
+      window.scrollTo({top:funcSec.offsetTop,behavior:'smooth'});
+    }
+
+    /* copy helper */
+    function copyBug(text){
+      navigator.clipboard.writeText(text)
+        .then(()=>alert('Copied!'))
+        .catch(()=>alert('Copy failed'));
     }
   </script>
 </body>
