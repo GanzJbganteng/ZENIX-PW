@@ -1,3 +1,12 @@
+(perintah, ENTER, tiga back-tick, html, ENTER, paste, tutup tiga back-tick)
+
+Back-tick membuat Telegram mengirim persis apa adanya.
+
+---
+
+## Kode index.html valid
+
+`html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,24 +16,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="sidebar-closed">
-  <!-- SIDEBAR -->
   <aside id="side" class="sidebar closed">
     <div class="logo">Zenix RGP 🚀</div>
     <nav>
       <ul>
-        <li><a data-page="home"       href="#" class="active">🏠 Home</a></li>
-        <li><a data-page="func"       href="#">📦 Func Bug</a></li>
+        <li><a data-page="home" href="#" class="active">🏠 Home</a></li>
+        <li><a data-page="func" href="#">📦 Func Bug</a></li>
         <li><a data-page="downloader" href="#">⬇️ Downloader</a></li>
-        <li><a data-page="about"      href="#">ℹ️ Tentang</a></li>
+        <li><a data-page="about" href="#">ℹ️ Tentang</a></li>
       </ul>
     </nav>
-    <button id="themeToggle" aria-label="Theme">🌙</button>
+    <button id="themeToggle">🌙</button>
   </aside>
 
-  <!-- hamburger -->
   <button id="menuBtn" class="ham">☰</button>
 
-  <!-- CONTENT -->
   <main class="content">
     <section id="homeSection" class="page">
       <header class="hero">
@@ -45,14 +51,6 @@
         <input id="tiktokUrl" placeholder="Tempel URL TikTok…">
         <button onclick="dlTikTok()">Download</button>
         <div id="tiktokResult" class="dl-result"></div>
-      </div>
-      <div class="dl-box"><h3>📌 Pinterest (coming soon)</h3><input disabled></div>
-      <div class="dl-box"><h3>✂️ CapCut (coming soon)</h3><input disabled></div>
-      <div class="dl-box">
-        <h3>🎞️ Preset Alight Motion</h3>
-        <ul class="preset-list">
-          <li><a href="https://example.com/preset-0706.amp" target="_blank">Preset 07-06 🔥</a></li>
-        </ul>
       </div>
     </section>
 
