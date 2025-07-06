@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Rofik – RGP Web</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{--p:#a21caf;--r:#dc2626;--bg:#0b0b0b;--lt:#fafafa;--td:#eee;--tl:#111}
+    body{background:var(--bg);color:var(--td);font-family:"Segoe UI",sans-serif;transition:.3s}
+    body.light{background:var(--lt);color:var(--tl)}
+
+    .glow-h1{font-size:3.4rem;font-weight:900;text-align:center;background:linear-gradient(90deg,var(--r),var(--p));
+      -webkit-background-clip:text;color:transparent;text-shadow:0 0 10px var(--p),0 0 22px var(--r);
+      animation:shift 6s infinite}
+    @keyframes shift{50%{text-shadow:0 0 10px var(--r),0 0 22px var(--p)}}
+
+    .card{background:linear-gradient(135deg,rgba(162,28,175,.25),rgba(220,38,38,.25));
+      border:1px solid rgba(255,255,255,.12);border-radius:1rem;padding:2rem;backdrop-filter:blur(6px);
+      box-shadow:0 0 18px 4px rgba(162,28,175,.35);transition:.35s;opacity:0;transform:translateY(40px)}
+    .card:hover{box-shadow:0 0 25px 8px rgba(220,38,38,.55);transform:translateY(-4px)}
+    .card.inview{opacity:1;transform:translateY(0)}
+
+    .gbtn{background:linear-gradient(90deg,var(--r),var(--p));color:#fff;font-weight:700;
+          padding:.6rem 1.4rem;border-radius:9999px;box-shadow:0 0 10px var(--p);transition:.3s}
+    .gbtn:hover{box-shadow:0 0 16px var(--r);transform:scale(1.05)}
+
+    #funcBugSection{background:#131313;padding:4rem 1rem}
+    .bug{background:#1e1e1e;border:1px solid rgba(255,255,255,.1);border-radius:.8rem;
+         padding:1rem 1.2rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
+    .bug button{background:var(--p);color:#fff;padding:.35rem 1rem;font-size:.8rem;border-radius:.5rem;cursor:pointer}
+    .bug button:hover{background:var(--r)}
+
+    #themeBtn{position:fixed;right:1rem;bottom:1rem;background:linear-gradient(135deg,var(--p),var(--r));
+      color:#fff;font-size:1.2rem;padding:.7rem 1rem;border-radius:50%;box-shadow:0 0 12px 3px rgba(162,28,175,.45);
+      border:none;cursor:pointer;transition:.3s}
+    #themeBtn:hover{transform:scale(1.08)}
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="min-h-screen flex flex-col items-center justify-center gap-4 px-4">
+    <h1 class="glow-h1">WELCOME</h1>
+    <p class="text-2xl font-bold text-center">CREATOR ROFIK</p>
+  </header>
+
+  <!-- Menu -->
+  <section class="max-w-6xl mx-auto px-6 pb-24">
+    <h2 class="text-2xl font-bold text-center mb-10">My Cool Features</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="card" data-obs onclick="gotoBug()">
+        <h3 class="text-xl font-semibold mb-2">Func Bug Zone</h3>
+        <p class="text-sm opacity-80 mb-6">Script func crash — langsung copy.</p>
+        <button class="gbtn">Explore</button>
+      </div>
+
+      <div class="card" data-obs>
+        <h3 class="text-xl font-semibold mb-2">Downloader</h3>
+        <p class="text-sm opacity-80 mb-6">Coming soon.</p>
+        <button class="gbtn">Wait</button>
+      </div>
+
+      <div class="card" data-obs>
+        <h3 class="text-xl font-semibold mb-2">AI Chat</h3>
+        <p class="text-sm opacity-80 mb-6">Coming soon.</p>
+        <button class="gbtn">Wait</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Func Bug List -->
+  <section id="funcBugSection" class="hidden">
+    <h2 class="text-3xl font-bold text-center mb-8">FUNC BUG LIST</h2>
+    <div id="bugContainer" class="max-w-3xl mx-auto"></div>
+  </section>
+
+  <!-- Theme -->
+  <button id="themeBtn" title="Toggle Theme">🌙</button>
+
+  <!-- Data bug -->
+  <script src="func.js"></script>
+  <!-- Main logic -->
+  <script src="script.js"></script>
+</body>
+</html>
