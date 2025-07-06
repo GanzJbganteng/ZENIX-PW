@@ -17,16 +17,26 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;dis
 /* SIDEBAR */
 .sidebar{z-index:1000;width:var(--sidebar-width);background:var(--bg-alt);
   border-right:1px solid var(--border);padding:1.5rem 1rem;
-  display:flex;flex-direction:column;gap:2rem;position:fixed;inset:0 auto 0 0}
+  display:flex;flex-direction:column;gap:2rem;position:fixed;inset:0 auto 0 0;
+  transition:.3s transform}
+.sidebar.closed{transform:translateX(-100%)}
 .logo{font-size:1.3rem;font-weight:700}
 .sidebar nav ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
 .sidebar a{color:var(--text-muted);text-decoration:none;padding:.5rem .8rem;border-radius:var(--radius);transition:.3s}
 .sidebar a.active,.sidebar a:hover{color:var(--text);background:rgba(255,255,255,.08)}
-#themeToggle{margin-top:auto;background:transparent;border:1px solid var(--border);
-  color:var(--text);width:40px;height:40px;border-radius:50%;cursor:pointer}
+#themeToggle{margin-top:auto;background:transparent;border:1px solid var(--border);color:var(--text);
+  width:40px;height:40px;border-radius:50%;cursor:pointer}
+
+/* hamburger */
+.ham{
+  position:fixed;top:1rem;left:1rem;z-index:1100;
+  background:var(--accent);color:#fff;border:none;border-radius:50%;
+  width:42px;height:42px;font-size:1.4rem;box-shadow:0 0 10px var(--purple);cursor:pointer;transition:.2s}
+.ham:hover{opacity:.85}
 
 /* CONTENT */
-.content{margin-left:var(--sidebar-width);padding:2rem 3rem;flex:1;overflow-x:hidden}
+.content{margin-left:var(--sidebar-width);padding:2rem 3rem;flex:1;overflow-x:hidden;transition:.3s margin-left}
+body.sidebar-closed .content{margin-left:0}
 .page.hidden{display:none}
 .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh}
 
@@ -34,7 +44,7 @@ body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;dis
   background:linear-gradient(90deg,var(--red),var(--purple));
   -webkit-background-clip:text;color:transparent;
   text-shadow:0 0 10px var(--purple),0 0 22px var(--red);
-  animation:shift 6s ease-in-out infinite}
+  animation:shift 6s infinite}
 @keyframes shift{50%{text-shadow:0 0 10px var(--red),0 0 22px var(--purple)}}
 .glow-sub{text-align:center;font-size:1.6rem;font-weight:800;text-shadow:0 0 6px var(--red),0 0 15px var(--purple)}
 .title-page{font-size:2rem;font-weight:700;text-align:center;margin-bottom:1.5rem}
