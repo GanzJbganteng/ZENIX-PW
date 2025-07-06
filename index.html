@@ -1,98 +1,96 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creator Rofik – RGP Web</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    :root{--p:#a21caf;--r:#dc2626;--bg:#0b0b0b;--lt:#fafafa;--td:#eee;--tl:#111}
-    body{background:var(--bg);color:var(--td);font-family:"Segoe UI",sans-serif;
-         transition:.3s background,.3s color;overflow-x:hidden}
-    body.light{background:var(--lt);color:var(--tl)}
-
-    /* judul */
-    .glow-h1{font-size:3.4rem;font-weight:900;text-align:center;letter-spacing:1px;
-      background:linear-gradient(90deg,var(--r),var(--p));
-      -webkit-background-clip:text;color:transparent;
-      text-shadow:0 0 10px var(--p),0 0 22px var(--r);
-      animation:shift 6s infinite}
-    @keyframes shift{50%{text-shadow:0 0 10px var(--r),0 0 22px var(--p)}}
-
-    /* card */
-    .card{background:linear-gradient(135deg,rgba(162,28,175,.25),rgba(220,38,38,.25));
-      border:1px solid rgba(255,255,255,.12);border-radius:1rem;padding:2rem;backdrop-filter:blur(6px);
-      box-shadow:0 0 18px 4px rgba(162,28,175,.35);transition:.35s;opacity:0;transform:translateY(40px)}
-    .card:hover{box-shadow:0 0 25px 8px rgba(220,38,38,.55);transform:translateY(-4px)}
-    .card.inview{opacity:1;transform:translateY(0)}
-
-    .gbtn{background:linear-gradient(90deg,var(--r),var(--p));color:#fff;font-weight:700;
-          padding:.6rem 1.4rem;border-radius:9999px;box-shadow:0 0 10px var(--p);transition:.3s}
-    .gbtn:hover{box-shadow:0 0 16px var(--r);transform:scale(1.05)}
-
-    /* func bug page */
-    #funcPage{display:none;min-height:100vh;background:#131313;padding:4rem 1rem}
-    .bug{background:#1e1e1e;border:1px solid rgba(255,255,255,.1);border-radius:.8rem;
-         padding:1rem 1.2rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
-    .bug button{background:var(--p);color:#fff;padding:.35rem 1rem;font-size:.8rem;border-radius:.5rem;cursor:pointer}
-    .bug button:hover{background:var(--r)}
-    .backBtn{margin-bottom:2rem}
-
-    /* theme button */
-    #themeBtn{position:fixed;right:1rem;bottom:1rem;background:linear-gradient(135deg,var(--p),var(--r));
-      color:#fff;font-size:1.2rem;padding:.7rem 1rem;border-radius:50%;box-shadow:0 0 12px 3px rgba(162,28,175,.45);
-      border:none;cursor:pointer;transition:.3s}
-    #themeBtn:hover{transform:scale(1.08)}
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenix RGP – Creator Rofik</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ============ HOME PAGE ============ -->
-  <div id="homePage">
-    <header class="min-h-screen flex flex-col items-center justify-center gap-4 px-4">
-      <h1 class="glow-h1">WELCOME</h1>
-      <p class="text-2xl font-bold text-center">CREATOR ROFIK</p>
-    </header>
+  <!-- ========= SIDEBAR ========= -->
+  <aside class="sidebar">
+    <div class="logo">Zenix RGP 🚀</div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active" data-page="home">🏠 Home</a></li>
+        <li><a href="#" data-page="func">📦 Func Bug</a></li>
+        <li><a href="#" data-page="downloader">⬇️ Downloader</a></li>
+        <li><a href="#" data-page="about">ℹ️ Tentang</a></li>
+      </ul>
+    </nav>
+    <button id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
+  </aside>
 
-    <section class="max-w-6xl mx-auto px-6 pb-24">
-      <h2 class="text-2xl font-bold text-center mb-10">My Cool Features</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="card" data-obs onclick="gotoBug()">
-          <h3 class="text-xl font-semibold mb-2">Func Bug Zone</h3>
-          <p class="text-sm opacity-80 mb-6">Script func crash — langsung copy.</p>
-          <button class="gbtn">Explore</button>
-        </div>
+  <!-- ========= CONTENT ========= -->
+  <main class="content">
 
-        <div class="card" data-obs>
-          <h3 class="text-xl font-semibold mb-2">Downloader</h3>
-          <p class="text-sm opacity-80 mb-6">Coming soon.</p>
-          <button class="gbtn">Wait</button>
-        </div>
+    <!-- welcome -->
+    <section id="homeSection" class="page">
+      <header class="hero">
+        <h1 class="glow-h1">WELCOME</h1>
+        <p class="glow-sub">CREATOR ROFIK</p>
+      </header>
+    </section>
 
-        <div class="card" data-obs>
-          <h3 class="text-xl font-semibold mb-2">AI Chat</h3>
-          <p class="text-sm opacity-80 mb-6">Coming soon.</p>
-          <button class="gbtn">Wait</button>
-        </div>
+    <!-- func bug -->
+    <section id="funcSection" class="page hidden">
+      <h2 class="title-page">Func Bug Zone</h2>
+      <div id="bugContainer" class="bug-list"></div>
+    </section>
+
+    <!-- downloader -->
+    <section id="downloaderSection" class="page hidden">
+      <h2 class="title-page">Downloader Center</h2>
+
+      <!-- TikTok -->
+      <div class="dl-box">
+        <h3>🔗 TikTok MP4 / MP3 / Photo</h3>
+        <input id="tiktokUrl" placeholder="Tempel URL TikTok…" />
+        <button onclick="dlTikTok()">Download</button>
+        <div id="tiktokResult" class="dl-result"></div>
+      </div>
+
+      <!-- Pinterest -->
+      <div class="dl-box">
+        <h3>📌 Pinterest Image (coming soon)</h3>
+        <input disabled placeholder="URL Pinterest…" />
+      </div>
+
+      <!-- CapCut -->
+      <div class="dl-box">
+        <h3>✂️ CapCut Template (coming soon)</h3>
+        <input disabled placeholder="URL CapCut…" />
+      </div>
+
+      <!-- Alight Motion Preset -->
+      <div class="dl-box">
+        <h3>🎞️ Preset Alight Motion</h3>
+        <p>Preset terbaru diunggah tiap hari:</p>
+        <ul class="preset-list">
+          <li><a href="https://example.com/preset-0607.amp" target="_blank">Preset 06-07 🔥</a></li>
+          <li><a href="https://example.com/preset-0507.amp" target="_blank">Preset 05-07</a></li>
+        </ul>
       </div>
     </section>
-  </div>
 
-  <!-- ============ FUNC BUG PAGE ============ -->
-  <div id="funcPage">
-    <button class="gbtn backBtn" onclick="backHome()">← Back</button>
+    <!-- about -->
+    <section id="aboutSection" class="page hidden">
+      <h2 class="title-page">Tentang</h2>
+      <p class="mt-4 leading-relaxed">
+        Halo! Saya <strong>Rofik</strong>, pencinta RGP UI, berbagi func bug, preset AM,
+        dan tool downloader gratis untuk orang banyak.  
+        Hubungi saya di <a href="mailto:rofik@example.com">rofik@example.com</a>.
+      </p>
+    </section>
 
-    <h2 class="text-3xl font-bold text-center mb-8">FUNC BUG LIST</h2>
-    <div id="bugContainer" class="max-w-3xl mx-auto"></div>
-  </div>
+  </main>
 
-  <!-- theme -->
-  <button id="themeBtn" title="Toggle Theme">🌙</button>
+  <!-- toast -->
+  <div id="toastContainer" class="toast-container"></div>
 
-  <!-- data bug -->
+  <!-- scripts -->
   <script src="func.js"></script>
-  <!-- logic -->
   <script src="script.js"></script>
 </body>
 </html>
