@@ -1,5 +1,7 @@
+/* Zenix RGP – Script Aman */
 document.addEventListener("DOMContentLoaded", () => {
-  /* === THEME === */
+
+  /* ========== THEME ========== */
   const themeBtn = document.getElementById("themeToggle");
   if (localStorage.getItem("zenTheme") === "light") {
     document.body.classList.add("light");
@@ -11,95 +13,95 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("zenTheme", light ? "light" : "dark");
   };
 
-  /* === SIDEBAR TOGGLE === */
-  const side = document.getElementById("side");
+  /* ========== SIDEBAR TOGGLE ========== */
+  const side    = document.getElementById("side");
   const menuBtn = document.getElementById("menuBtn");
   menuBtn.onclick = () => {
     side.classList.toggle("closed");
     document.body.classList.toggle("sidebar-closed");
   };
 
-  /* === NAVIGATION === */
+  /* ========== NAVIGATION PAGES ========== */
   const pages = {
-    home: homeSection,
-    func: funcSection,
-    downloader: downloaderSection,
-    about: aboutSection
+    home:       document.getElementById("homeSection"),
+    func:       document.getElementById("funcSection"),
+    downloader: document.getElementById("downloaderSection"),
+    about:      document.getElementById("aboutSection")
   };
-  function show(key) {
+
+  function show(pageKey) {
     Object.values(pages).forEach(p => p.classList.add("hidden"));
-    (pages[key] || pages.home).classList.remove("hidden");
+    pages[pageKey].classList.remove("hidden");
     window.scrollTo({ top: 0 });
-    if (key === "func") renderBugs();
+    if (pageKey === "func") renderBugs();
   }
-  document.querySelectorAll(".sidebar a").forEach(a => {
-    a.onclick = e => {
+
+  /* — link menu — */
+  document.querySelectorAll(".sidebar a").forEach(link => {
+    link.addEventListener("click", e => {
       e.preventDefault();
-      document
-        .querySelectorAll(".sidebar a")
-        .forEach(x => x.classList.toggle("active", x === a));
-      show(a.dataset.page);
+      document.querySelectorAll(".sidebar a")
+              .forEach(a => a.classList.toggle("active", a === link));
+      show(link.dataset.page);
       side.classList.add("closed");
       document.body.classList.add("sidebar-closed");
-    };
+    });
   });
 
-  /* === FUNC BUG === */
-  let rendered = false;
+  /* ========== FUNC BUG ========== */
+  let bugsRendered = false;
   function renderBugs() {
-    if (rendered || typeof bugData === "undefined") return;
+    if (bugsRendered || typeof bugData === "undefined") return;
+    const wrap = document.getElementById("bugContainer");
     bugData.forEach((b, i) => {
-      bugContainer.insertAdjacentHTML(
+      wrap.insertAdjacentHTML(
         "beforeend",
-        `<div class="bug">
+        <div class="bug">
            <span>${b.title}</span>
-           <button onclick="cp(${i})">Copy</button>
-         </div>`
+           <button onclick="copyBug(${i})">Copy</button>
+         </div>
       );
     });
-    rendered = true;
+    bugsRendered = true;
   }
-  window.cp = i =>
+  window.copyBug = i =>
     navigator.clipboard
       .writeText(atob(bugData[i].funcB64))
-      .then(() => toast("✅ Copied"))
+      .then(() => toast("✅ Copied!"))
       .catch(() => toast("Copy failed", true));
 
-  /* === TikTok downloader demo === */
+  /* ========== TikTok downloader demo ========== */
   window.dlTikTok = async () => {
-    const url = tiktokUrl.value.trim();
+    const url = document.getElementById("tiktokUrl").value.trim();
+    const out = document.getElementById("tiktokResult");
     if (!url) return toast("Masukkan URL!", true);
-    tiktokResult.textContent = "Mengambil…";
+
+    out.textContent = "Mengambil…";
     try {
-      const r = await fetch(
-        `https://r.jina.ai/http://api.tikmate.app/api/lookup?url=${encodeURIComponent(
-          url
-        )}`
-      );
-      const d = await r.json();
-      if (!d.token) throw 0;
-      const link = `https://tikmate.app/download/${d.token}/${d.id}.mp4`;
-      tiktokResult.innerHTML = `<a href="${link}" target="_blank">Download MP4</a>`;
+      const api = https://r.jina.ai/http://api.tikmate.app/api/lookup?url=${encodeURIComponent(url)};
+      const res = await fetch(api);
+      const data = await res.json();
+      if (!data.token) throw 0;
+      const mp4 = https://tikmate.app/download/${data.token}/${data.id}.mp4;
+      out.innerHTML = <a href="${mp4}" target="_blank">Download MP4</a>;
       toast("Berhasil!");
     } catch {
-      tiktokResult.textContent = "Gagal.";
+      out.textContent = "Gagal.";
       toast("❌ Error", true);
     }
   };
 
-  /* === TOAST === */
+  /* ========== TOAST ========== */
   function toast(msg, err = false) {
-    const div = document.createElement("div");
-    div.className = "toast";
-    if (err) div.style.borderLeftColor = "red";
-    div.textContent = msg;
-    toastContainer.appendChild(div);
-    setTimeout(() => {
-      div.style.opacity = 0;
-      setTimeout(() => div.remove(), 500);
-    }, 2500);
+    const box = document.getElementById("toastContainer");
+    const d   = document.createElement("div");
+    d.className = "toast";
+    if (err) d.style.borderLeftColor = "red";
+    d.textContent = msg;
+    box.appendChild(d);
+    setTimeout(() => { d.style.opacity = 0; setTimeout(() => d.remove(), 500); }, 2500);
   }
 
-  /* init */
+  /* init show home */
   show("home");
 });
