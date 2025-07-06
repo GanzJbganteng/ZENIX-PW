@@ -1,42 +1,55 @@
-/* ---- theme toggle ---- */
-const btn = document.getElementById('themeBtn');
+/* ==== THEME ==== */
+const tBtn = document.getElementById('themeBtn');
 if (localStorage.getItem('rofikTheme') === 'light') {
-  document.body.classList.add('light'); btn.textContent = '☀️';
+  document.body.classList.add('light');
+  tBtn.textContent = '☀️';
 }
-btn.onclick = () => {
+tBtn.onclick = () => {
   document.body.classList.toggle('light');
-  btn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+  tBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
   localStorage.setItem('rofikTheme', document.body.classList.contains('light') ? 'light' : 'dark');
 };
 
-/* ---- muncul saat discroll ---- */
+/* ==== Card scroll anim ==== */
 document.querySelectorAll('[data-obs]').forEach(card => {
-  const io = new IntersectionObserver(e => {
-    if (e[0].isIntersecting) { card.classList.add('inview'); io.disconnect(); }
+  const io = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      card.classList.add('inview');
+      io.disconnect();
+    }
   }, { threshold: .2 });
   io.observe(card);
 });
 
-/* ---- render bug list ---- */
-const cont = document.getElementById('bugContainer');
+/* ==== Render bug list ==== */
+const list = document.getElementById('bugContainer');
 bugData.forEach((b, i) => {
   const div = document.createElement('div');
   div.className = 'bug';
   div.innerHTML = `<span>${b.title}</span>
                    <button onclick="copyBug(${i})">Copy</button>`;
-  cont.append(div);
+  list.append(div);
 });
 
-/* ---- copy func ---- */
+/* ==== Copy ==== */
 function copyBug(i) {
   navigator.clipboard.writeText(atob(bugData[i].funcB64))
     .then(() => alert('Copied!'))
     .catch(() => alert('Copy failed'));
 }
 
-/* ---- scroll ke section ---- */
+/* ==== Navigation ==== */
+const homePage = document.getElementById('homePage');
+const funcPage = document.getElementById('funcPage');
+
 function gotoBug() {
-  const sec = document.getElementById('funcBugSection');
-  sec.classList.remove('hidden');
-  window.scrollTo({ top: sec.offsetTop, behavior: 'smooth' });
+  homePage.style.display = 'none';
+  funcPage.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function backHome() {
+  funcPage.style.display = 'none';
+  homePage.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
