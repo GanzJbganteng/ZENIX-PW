@@ -1,5 +1,6 @@
 /* Zenix RGP – Main Script */
 document.addEventListener("DOMContentLoaded", () => {
+
   /* === THEME === */
   const themeBtn = document.getElementById("themeToggle");
   if (localStorage.getItem("zenTheme") === "light") {
@@ -10,6 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const light = document.body.classList.toggle("light");
     themeBtn.textContent = light ? "☀️" : "🌙";
     localStorage.setItem("zenTheme", light ? "light" : "dark");
+  };
+
+  /* === SIDEBAR TOGGLE === */
+  const side   = document.getElementById("side");
+  const menuBtn= document.getElementById("menuBtn");
+  menuBtn.onclick = () => {
+    side.classList.toggle("closed");
+    document.body.classList.toggle("sidebar-closed");
   };
 
   /* === NAVIGATION === */
@@ -31,6 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const key = link.dataset.page;
       document.querySelectorAll(".sidebar a").forEach(a=>a.classList.toggle("active",a===link));
       showPage(key);
+      // auto hide sidebar on mobile
+      side.classList.add("closed");
+      document.body.classList.add("sidebar-closed");
     });
   });
 
@@ -73,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  /* === Toast === */
+  /* === TOAST === */
   function toast(msg,err=false){
     const box=document.getElementById("toastContainer");
     const div=document.createElement("div");
